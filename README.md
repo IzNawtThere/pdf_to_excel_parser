@@ -1,24 +1,46 @@
 # pdf_to_excel_parser
 
-This repository contains a customizable script to extract structured tabular data from scanned or digitally generated PDF documents and convert it directly into Excel format. The script is tailored for column-based financial and project reports — especially complex layouts where auto-detection fails and manual alignment works best.
+This repository contains a flexible PDF-to-Excel parsing pipeline built for extracting structured tabular data from scanned or digitally generated PDF documents — particularly those with complex layouts, inconsistent row heights, or overlapping text. It is optimized for column-based financial reports or cost sheets, where **manual column boundary definitions** give better results than automated detection.
 
 ---
 
 ## How It Works
 
-1. You **manually define column positions** (in pixels) using `column_viewing.py` by visually overlaying red lines on a PDF page to verify vertical cuts.
-2. All key settings like PDF path, Excel output path, headers, and column boundaries are stored in `config.py`.
-3. The main parser (`main.py`) reads each page using `pdfplumber`, assigns words into cells based on column positions, and outputs a clean `.xlsx` table.
+This parser is built on a **manual alignment paradigm**, where you define exactly how columns are split. It's designed for layout-heavy documents where:
+
+- Text may wrap across multiple lines
+- Table structures are not clearly bordered
+- OCR-based methods often fail
+
+### The Workflow
+
+1. Use `column_viewing.py` to visually define **column boundaries** by overlaying red lines on a PDF preview.
+2. Define all file paths and column structure inside `config.py`.
+3. Run the parser via `main.py` to:
+   - Read the PDF using `pdfplumber`
+   - Group lines into logical rows using vertical proximity
+   - Bucket words into columns based on pixel `x` positions
+   - Write the structured output directly into `.xlsx`
 
 ---
 
-## How to Use `column_viewing.py`
+## Repository Structure
 
-Before running the parser:
+| File               | Purpose                                                                 |
+|--------------------|--------------------------------------------------------------------------|
+| `config.py`         | Centralized config: file paths, column headers, positions, tolerances   |
+| `column_viewing.py` | View the PDF with vertical guides to manually fine-tune columns         |
+| `main.py`           | The core parser script — reads PDF, assigns cells, exports Excel        |
+| `requirements.txt`  | Python dependencies — use with `pip install -r`                         |
+| `README.md`         | You're reading it.                                                      |
 
-- Open `config.py` and set:
-  - `PDF_PATH`
-  - `COL_POSITIONS` (you can start with rough estimates)
-- Run:
-  ```bash
-  python column_viewing.py
+---
+
+## Visual Column Alignment (Important Step)
+
+Before parsing, make sure your column boundaries are precise:
+
+### Run:
+
+```bash
+python column_viewing.py
