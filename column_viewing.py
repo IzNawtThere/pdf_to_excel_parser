@@ -1,11 +1,7 @@
+# column_viewing.py
+
 import pdfplumber
-
-pdf_path = r"your/path/here.pdf" # input PDF path here
-output_img = r"your/output/here.png" # export image path here
-
-col_positions = [
-    # input your custom coordinates here
-]
+from config import pdf_path, column_overlay_path, col_positions
 
 with pdfplumber.open(pdf_path) as pdf:
     page = pdf.pages[0]
@@ -14,5 +10,5 @@ with pdfplumber.open(pdf_path) as pdf:
     for x in col_positions:
         im.draw_line([(x, 130), (x, page.height)], stroke="red", stroke_width=1)
 
-    im.save(output_img)
-    print(f"Overlay image saved to: {output_img}") # cross check column divides
+    im.save(column_overlay_path)
+    print(f"Overlay image saved to: {column_overlay_path}")
