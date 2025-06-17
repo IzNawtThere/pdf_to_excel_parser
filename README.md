@@ -6,18 +6,19 @@ This repository contains a customizable script to extract structured tabular dat
 
 ## How It Works
 
-- You manually define **column positions** (in pixels) using vertical guidelines.
-- A `config.py` file contains all key settings — file paths, header definitions, and column splits.
-- The parser reads each PDF page, extracts text using `pdfplumber`, and maps words to grid cells based on their horizontal position.
-- The output is a clean `.xlsx` file ready for analysis.
+1. You **manually define column positions** (in pixels) using `column_viewing.py` by visually overlaying red lines on a PDF page to verify vertical cuts.
+2. All key settings like PDF path, Excel output path, headers, and column boundaries are stored in `config.py`.
+3. The main parser (`main.py`) reads each page using `pdfplumber`, assigns words into cells based on column positions, and outputs a clean `.xlsx` table.
 
 ---
 
-## Installation
+## How to Use `column_viewing.py`
 
-Clone the repo and install dependencies:
+Before running the parser:
 
-```bash
-git clone https://github.com/lzNawtThere/pdf_to_excel_parser.git
-cd pdf_to_excel_parser
-pip install -r requirements.txt
+- Open `config.py` and set:
+  - `PDF_PATH`
+  - `COL_POSITIONS` (you can start with rough estimates)
+- Run:
+  ```bash
+  python column_viewing.py
