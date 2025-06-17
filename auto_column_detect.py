@@ -5,7 +5,7 @@ from scipy.signal import find_peaks, savgol_filter
 import cv2
 
 # === CONFIG ===
-PDF_PATH = r"C:\Users\abhiraj.singh\Downloads\pg116-119.pdf"
+PDF_PATH = r"your/path/here.pdf" # input PDF path here
 DPI = 400
 CUT_TOP, CUT_LEFT, CUT_RIGHT = 100, 100, 80
 SAVGOL_WIN, SAVGOL_POLY = 51, 3
